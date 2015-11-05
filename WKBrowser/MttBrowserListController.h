@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MttBrowserListController.h
 //  WKBrowser
 //
 //  Created by Yanjun Zhuang on 3/11/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface MttBrowserListController : UITableViewController
 
 @end
-
