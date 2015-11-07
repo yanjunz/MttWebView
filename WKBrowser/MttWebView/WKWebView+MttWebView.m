@@ -52,23 +52,6 @@
     }
 }
 
-/*
- * Sets a given delegateView as the delegate for this web view.
- */
-- (void) setDelegateViews: (id <WKNavigationDelegate, WKUIDelegate>) delegateView
-{
-    [self setNavigationDelegate: delegateView];
-    [self setUIDelegate: delegateView];
-}
-
-/*
- * Essentially creates a URL request from a string and then loads it.
- */
-- (void) loadRequestFromString: (NSString *) urlNameAsString
-{
-    [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: urlNameAsString]]];
-}
-
 - (BOOL)scalesPageToFit
 {
     return NO;

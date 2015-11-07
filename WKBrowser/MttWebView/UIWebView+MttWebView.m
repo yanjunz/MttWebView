@@ -12,6 +12,14 @@
 
 @implementation UIWebView (MttWebView)
 
+- (instancetype)initWithFrame:(CGRect)frame configuration:(id)configuration
+{
+    if (self = [self initWithFrame:frame]) {
+        
+    }
+    return self;
+}
+
 - (void)setupWebView
 {
     self.delegate = self;

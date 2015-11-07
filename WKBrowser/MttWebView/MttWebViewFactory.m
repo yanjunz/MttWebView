@@ -17,17 +17,23 @@
 + (MttWebView *)createWebViewWithConfiguration:(id)configuration
 {
     MttWebView *webView;
-    if (!NSClassFromString(@"WKWebView")) {
-        if (configuration) {
-            webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
-        }
-        else {
-            webView = [[WKWebView alloc] init];
-        }
+    
+#ifdef MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
+    
+    webView = [[MttWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+    
+#else // MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
+    
+    if (NSClassFromString(@"WKWebView")) {
+        webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     }
     else {
-        webView = [[UIWebView alloc] init];
+        webView = [[UIWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     }
+    
+#endif // MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
+    
+    
     [webView setupWebView];
     return webView;
 }

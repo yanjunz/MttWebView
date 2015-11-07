@@ -10,8 +10,9 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
+#define MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
+
 @protocol MttWebView;
-typedef UIView<MttWebView>  MttWebView;
 
 typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
     MttWebViewNavigationTypeLinkClicked,
@@ -56,23 +57,15 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 
 @property (nonatomic, weak) id<MttWebViewDelegate> mttWebViewDelegate;
 
-///*
-// * Assign a delegate view for this webview.
-// */
-//- (void)setDelegateViews: (id) delegateView;
+
+- (instancetype)initWithFrame:(CGRect)frame configuration:(id)configuration;
 
 - (void)setupWebView;
 
 - (void)destroyWebView;
 
-/*
- * Load an NSURLRequest in the active webview.
- */
 - (void)loadRequest: (NSURLRequest *) request;
 
-/*
- * Returns true if it is possible to go back, false otherwise.
- */
 - (BOOL)canGoBack;
 
 - (BOOL)canGoForward;
@@ -85,25 +78,38 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 
 - (void)stopLoading;
 
-/*
- * UIWebView has stringByEvaluatingJavaScriptFromString, which is synchronous.
- * WKWebView has evaluateJavaScript, which is asynchronous.
- * Since it's far easier to implement the latter in UIWebView, we define it here and do that.
- */
 - (void)evaluateJavaScript: (NSString *) javaScriptString completionHandler: (void (^)(id ret, NSError *error)) completionHandler;
 
 @end
 
 
+
 /**
  * Macro to define MttWebView category.
- * Since base class is UIView<MttWebView>, use these macro to make code more readable
+ * Since base class is UIView<MttWebView>(just category) or MttWebView(class cluster), use these macro to make code more readable
  * Usage:
  *   for Utils category for MttWebView, create file with name MttWebView+Utils.h/m
  *   add AS_MttWebView_Category(Utils) and DEF_MttWebView_Category(Utils) in the begining of .h and .m
  **/
+
+#ifdef MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
+
+@interface MttWebView : UIView<MttWebView>
+@end
+
+#define AS_MttWebView_Category(category)    @interface MttWebView (category)
+#define DEF_MttWebView_Category(category)   @implementation MttWebView (category)
+
+#else // MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
+
+typedef UIView<MttWebView>  MttWebView;
+
 #define AS_MttWebView_Category(category)    @interface UIView (category)
 #define DEF_MttWebView_Category(category)   @implementation UIView (category)
+
+#endif // MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
+
+
 
 #define DEF_CATEGORY_PROPERTY(type, name, uppercaseFirstName, propType) \
 - (type)name { \

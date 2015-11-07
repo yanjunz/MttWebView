@@ -15,7 +15,7 @@
     if (self = [super init]) {
         self.originObject = originObject;
         self.proxyObject = proxyObject;
-        NSLog(@"UIScrollViewDelegateProxy %@ %@", originObject, proxyObject);
+//        NSLog(@"UIScrollViewDelegateProxy %@ %@", originObject, proxyObject);
     }
     return self;
 }
