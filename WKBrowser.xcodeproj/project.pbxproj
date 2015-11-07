@@ -7,20 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC1197301BEB508200BBECEC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC11972F1BEB508200BBECEC /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EC732D5E1BE856B300AC13A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D5D1BE856B300AC13A9 /* main.m */; };
 		EC732D611BE856B300AC13A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D601BE856B300AC13A9 /* AppDelegate.m */; };
 		EC732D671BE856B300AC13A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC732D651BE856B300AC13A9 /* Main.storyboard */; };
 		EC732D691BE856B300AC13A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC732D681BE856B300AC13A9 /* Assets.xcassets */; };
 		EC732D6C1BE856B300AC13A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC732D6A1BE856B300AC13A9 /* LaunchScreen.storyboard */; };
-		EC732D751BE8570100AC13A9 /* MttMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D741BE8570100AC13A9 /* MttMainViewController.m */; settings = {ASSET_TAGS = (); }; };
-		EC732D781BE8587100AC13A9 /* MttAddressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D771BE8587100AC13A9 /* MttAddressBar.m */; settings = {ASSET_TAGS = (); }; };
-		EC732D7D1BE897AF00AC13A9 /* MttBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D7C1BE897AF00AC13A9 /* MttBrowserWindowController.m */; settings = {ASSET_TAGS = (); }; };
-		EC732D801BE898CC00AC13A9 /* MttBrowserWindowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D7F1BE898CC00AC13A9 /* MttBrowserWindowManager.m */; settings = {ASSET_TAGS = (); }; };
-		EC732D861BE8B3FD00AC13A9 /* MttBrowserListController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D851BE8B3FD00AC13A9 /* MttBrowserListController.m */; settings = {ASSET_TAGS = (); }; };
-		EC732D891BE8B74C00AC13A9 /* MttBrowserItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D881BE8B74C00AC13A9 /* MttBrowserItemCell.m */; settings = {ASSET_TAGS = (); }; };
+		EC732D9D1BEAFE1C00AC13A9 /* MttAddressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D901BEAFE1C00AC13A9 /* MttAddressBar.m */; };
+		EC732D9E1BEAFE1C00AC13A9 /* MttBrowserItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D921BEAFE1C00AC13A9 /* MttBrowserItemCell.m */; };
+		EC732D9F1BEAFE1C00AC13A9 /* MttBrowserListController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D941BEAFE1C00AC13A9 /* MttBrowserListController.m */; };
+		EC732DA01BEAFE1C00AC13A9 /* MttBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D961BEAFE1C00AC13A9 /* MttBrowserWindowController.m */; };
+		EC732DA11BEAFE1C00AC13A9 /* MttBrowserWindowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D981BEAFE1C00AC13A9 /* MttBrowserWindowManager.m */; };
+		EC732DA21BEAFE1C00AC13A9 /* MttMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D9A1BEAFE1C00AC13A9 /* MttMainViewController.m */; };
+		EC732DA71BEB016300AC13A9 /* UIWebView+MttWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DA61BEB016300AC13A9 /* UIWebView+MttWebView.m */; };
+		EC732DAA1BEB017600AC13A9 /* WKWebView+MttWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DA91BEB017600AC13A9 /* WKWebView+MttWebView.m */; };
+		EC732DAF1BEB315D00AC13A9 /* MttWebViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DAE1BEB315D00AC13A9 /* MttWebViewFactory.m */; };
+		EC732DC21BEB49DA00AC13A9 /* MTKObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DB91BEB49DA00AC13A9 /* MTKObserver.m */; };
+		EC732DC31BEB49DA00AC13A9 /* NSObject+MTKObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DBD1BEB49DA00AC13A9 /* NSObject+MTKObserving.m */; };
+		EC732DC61BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DC51BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC11972F1BEB508200BBECEC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		EC732D591BE856B300AC13A9 /* WKBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WKBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC732D5D1BE856B300AC13A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EC732D5F1BE856B300AC13A9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -29,20 +37,39 @@
 		EC732D681BE856B300AC13A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC732D6B1BE856B300AC13A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC732D6D1BE856B300AC13A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EC732D731BE8570100AC13A9 /* MttMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttMainViewController.h; sourceTree = "<group>"; };
-		EC732D741BE8570100AC13A9 /* MttMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttMainViewController.m; sourceTree = "<group>"; };
-		EC732D761BE8587100AC13A9 /* MttAddressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttAddressBar.h; sourceTree = "<group>"; };
-		EC732D771BE8587100AC13A9 /* MttAddressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttAddressBar.m; sourceTree = "<group>"; };
-		EC732D7B1BE897AF00AC13A9 /* MttBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttBrowserWindowController.h; sourceTree = "<group>"; };
-		EC732D7C1BE897AF00AC13A9 /* MttBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttBrowserWindowController.m; sourceTree = "<group>"; };
-		EC732D7E1BE898CC00AC13A9 /* MttBrowserWindowManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttBrowserWindowManager.h; sourceTree = "<group>"; };
-		EC732D7F1BE898CC00AC13A9 /* MttBrowserWindowManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttBrowserWindowManager.m; sourceTree = "<group>"; };
-		EC732D811BE898E800AC13A9 /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
-		EC732D831BE8A3A300AC13A9 /* MttNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MttNotifications.h; sourceTree = "<group>"; };
-		EC732D841BE8B3FD00AC13A9 /* MttBrowserListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttBrowserListController.h; sourceTree = "<group>"; };
-		EC732D851BE8B3FD00AC13A9 /* MttBrowserListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttBrowserListController.m; sourceTree = "<group>"; };
-		EC732D871BE8B74C00AC13A9 /* MttBrowserItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttBrowserItemCell.h; sourceTree = "<group>"; };
-		EC732D881BE8B74C00AC13A9 /* MttBrowserItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttBrowserItemCell.m; sourceTree = "<group>"; };
+		EC732D8F1BEAFE1C00AC13A9 /* MttAddressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttAddressBar.h; sourceTree = "<group>"; };
+		EC732D901BEAFE1C00AC13A9 /* MttAddressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttAddressBar.m; sourceTree = "<group>"; };
+		EC732D911BEAFE1C00AC13A9 /* MttBrowserItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttBrowserItemCell.h; sourceTree = "<group>"; };
+		EC732D921BEAFE1C00AC13A9 /* MttBrowserItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttBrowserItemCell.m; sourceTree = "<group>"; };
+		EC732D931BEAFE1C00AC13A9 /* MttBrowserListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttBrowserListController.h; sourceTree = "<group>"; };
+		EC732D941BEAFE1C00AC13A9 /* MttBrowserListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttBrowserListController.m; sourceTree = "<group>"; };
+		EC732D951BEAFE1C00AC13A9 /* MttBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttBrowserWindowController.h; sourceTree = "<group>"; };
+		EC732D961BEAFE1C00AC13A9 /* MttBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttBrowserWindowController.m; sourceTree = "<group>"; };
+		EC732D971BEAFE1C00AC13A9 /* MttBrowserWindowManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttBrowserWindowManager.h; sourceTree = "<group>"; };
+		EC732D981BEAFE1C00AC13A9 /* MttBrowserWindowManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttBrowserWindowManager.m; sourceTree = "<group>"; };
+		EC732D991BEAFE1C00AC13A9 /* MttMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttMainViewController.h; sourceTree = "<group>"; };
+		EC732D9A1BEAFE1C00AC13A9 /* MttMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttMainViewController.m; sourceTree = "<group>"; };
+		EC732D9B1BEAFE1C00AC13A9 /* MttNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttNotifications.h; sourceTree = "<group>"; };
+		EC732D9C1BEAFE1C00AC13A9 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		EC732DA41BEAFE7100AC13A9 /* MttWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttWebView.h; sourceTree = "<group>"; };
+		EC732DA51BEB016300AC13A9 /* UIWebView+MttWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+MttWebView.h"; sourceTree = "<group>"; };
+		EC732DA61BEB016300AC13A9 /* UIWebView+MttWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+MttWebView.m"; sourceTree = "<group>"; };
+		EC732DA81BEB017600AC13A9 /* WKWebView+MttWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+MttWebView.h"; sourceTree = "<group>"; };
+		EC732DA91BEB017600AC13A9 /* WKWebView+MttWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+MttWebView.m"; sourceTree = "<group>"; };
+		EC732DAD1BEB315D00AC13A9 /* MttWebViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttWebViewFactory.h; sourceTree = "<group>"; };
+		EC732DAE1BEB315D00AC13A9 /* MttWebViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttWebViewFactory.m; sourceTree = "<group>"; };
+		EC732DB01BEB325A00AC13A9 /* MttWebViewKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MttWebViewKit.h; sourceTree = "<group>"; };
+		EC732DB81BEB49DA00AC13A9 /* MTKObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTKObserver.h; sourceTree = "<group>"; };
+		EC732DB91BEB49DA00AC13A9 /* MTKObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTKObserver.m; sourceTree = "<group>"; };
+		EC732DBA1BEB49DA00AC13A9 /* MTKObserving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTKObserving.h; sourceTree = "<group>"; };
+		EC732DBB1BEB49DA00AC13A9 /* MTKObservingMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTKObservingMacros.h; sourceTree = "<group>"; };
+		EC732DBC1BEB49DA00AC13A9 /* NSObject+MTKObserving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MTKObserving.h"; sourceTree = "<group>"; };
+		EC732DBD1BEB49DA00AC13A9 /* NSObject+MTKObserving.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MTKObserving.m"; sourceTree = "<group>"; };
+		EC732DBF1BEB49DA00AC13A9 /* keypath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keypath.h; sourceTree = "<group>"; };
+		EC732DC01BEB49DA00AC13A9 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
+		EC732DC11BEB49DA00AC13A9 /* scope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scope.h; sourceTree = "<group>"; };
+		EC732DC41BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScrollViewDelegateProxy.h; sourceTree = "<group>"; };
+		EC732DC51BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScrollViewDelegateProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC1197301BEB508200BBECEC /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +87,7 @@
 		EC732D501BE856B300AC13A9 = {
 			isa = PBXGroup;
 			children = (
+				EC11972F1BEB508200BBECEC /* WebKit.framework */,
 				EC732D5B1BE856B300AC13A9 /* WKBrowser */,
 				EC732D5A1BE856B300AC13A9 /* Products */,
 			);
@@ -75,6 +104,9 @@
 		EC732D5B1BE856B300AC13A9 /* WKBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				EC732DB71BEB49DA00AC13A9 /* Block-KVO */,
+				EC732DA31BEAFE6600AC13A9 /* MttWebView */,
+				EC732D8E1BEAFE1C00AC13A9 /* Demo */,
 				EC732D5F1BE856B300AC13A9 /* AppDelegate.h */,
 				EC732D601BE856B300AC13A9 /* AppDelegate.m */,
 				EC732D651BE856B300AC13A9 /* Main.storyboard */,
@@ -82,20 +114,6 @@
 				EC732D6A1BE856B300AC13A9 /* LaunchScreen.storyboard */,
 				EC732D6D1BE856B300AC13A9 /* Info.plist */,
 				EC732D5C1BE856B300AC13A9 /* Supporting Files */,
-				EC732D731BE8570100AC13A9 /* MttMainViewController.h */,
-				EC732D741BE8570100AC13A9 /* MttMainViewController.m */,
-				EC732D761BE8587100AC13A9 /* MttAddressBar.h */,
-				EC732D771BE8587100AC13A9 /* MttAddressBar.m */,
-				EC732D7B1BE897AF00AC13A9 /* MttBrowserWindowController.h */,
-				EC732D7C1BE897AF00AC13A9 /* MttBrowserWindowController.m */,
-				EC732D7E1BE898CC00AC13A9 /* MttBrowserWindowManager.h */,
-				EC732D7F1BE898CC00AC13A9 /* MttBrowserWindowManager.m */,
-				EC732D811BE898E800AC13A9 /* Singleton.h */,
-				EC732D831BE8A3A300AC13A9 /* MttNotifications.h */,
-				EC732D841BE8B3FD00AC13A9 /* MttBrowserListController.h */,
-				EC732D851BE8B3FD00AC13A9 /* MttBrowserListController.m */,
-				EC732D871BE8B74C00AC13A9 /* MttBrowserItemCell.h */,
-				EC732D881BE8B74C00AC13A9 /* MttBrowserItemCell.m */,
 			);
 			path = WKBrowser;
 			sourceTree = "<group>";
@@ -106,6 +124,68 @@
 				EC732D5D1BE856B300AC13A9 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EC732D8E1BEAFE1C00AC13A9 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				EC732D8F1BEAFE1C00AC13A9 /* MttAddressBar.h */,
+				EC732D901BEAFE1C00AC13A9 /* MttAddressBar.m */,
+				EC732D911BEAFE1C00AC13A9 /* MttBrowserItemCell.h */,
+				EC732D921BEAFE1C00AC13A9 /* MttBrowserItemCell.m */,
+				EC732D931BEAFE1C00AC13A9 /* MttBrowserListController.h */,
+				EC732D941BEAFE1C00AC13A9 /* MttBrowserListController.m */,
+				EC732D951BEAFE1C00AC13A9 /* MttBrowserWindowController.h */,
+				EC732D961BEAFE1C00AC13A9 /* MttBrowserWindowController.m */,
+				EC732D971BEAFE1C00AC13A9 /* MttBrowserWindowManager.h */,
+				EC732D981BEAFE1C00AC13A9 /* MttBrowserWindowManager.m */,
+				EC732D991BEAFE1C00AC13A9 /* MttMainViewController.h */,
+				EC732D9A1BEAFE1C00AC13A9 /* MttMainViewController.m */,
+				EC732D9B1BEAFE1C00AC13A9 /* MttNotifications.h */,
+				EC732D9C1BEAFE1C00AC13A9 /* Singleton.h */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		EC732DA31BEAFE6600AC13A9 /* MttWebView */ = {
+			isa = PBXGroup;
+			children = (
+				EC732DA41BEAFE7100AC13A9 /* MttWebView.h */,
+				EC732DA51BEB016300AC13A9 /* UIWebView+MttWebView.h */,
+				EC732DA61BEB016300AC13A9 /* UIWebView+MttWebView.m */,
+				EC732DA81BEB017600AC13A9 /* WKWebView+MttWebView.h */,
+				EC732DA91BEB017600AC13A9 /* WKWebView+MttWebView.m */,
+				EC732DAD1BEB315D00AC13A9 /* MttWebViewFactory.h */,
+				EC732DAE1BEB315D00AC13A9 /* MttWebViewFactory.m */,
+				EC732DB01BEB325A00AC13A9 /* MttWebViewKit.h */,
+				EC732DC41BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.h */,
+				EC732DC51BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m */,
+			);
+			path = MttWebView;
+			sourceTree = "<group>";
+		};
+		EC732DB71BEB49DA00AC13A9 /* Block-KVO */ = {
+			isa = PBXGroup;
+			children = (
+				EC732DB81BEB49DA00AC13A9 /* MTKObserver.h */,
+				EC732DB91BEB49DA00AC13A9 /* MTKObserver.m */,
+				EC732DBA1BEB49DA00AC13A9 /* MTKObserving.h */,
+				EC732DBB1BEB49DA00AC13A9 /* MTKObservingMacros.h */,
+				EC732DBC1BEB49DA00AC13A9 /* NSObject+MTKObserving.h */,
+				EC732DBD1BEB49DA00AC13A9 /* NSObject+MTKObserving.m */,
+				EC732DBE1BEB49DA00AC13A9 /* Utilities */,
+			);
+			path = "Block-KVO";
+			sourceTree = "<group>";
+		};
+		EC732DBE1BEB49DA00AC13A9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				EC732DBF1BEB49DA00AC13A9 /* keypath.h */,
+				EC732DC01BEB49DA00AC13A9 /* metamacros.h */,
+				EC732DC11BEB49DA00AC13A9 /* scope.h */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,14 +259,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC732D7D1BE897AF00AC13A9 /* MttBrowserWindowController.m in Sources */,
-				EC732D751BE8570100AC13A9 /* MttMainViewController.m in Sources */,
 				EC732D611BE856B300AC13A9 /* AppDelegate.m in Sources */,
-				EC732D861BE8B3FD00AC13A9 /* MttBrowserListController.m in Sources */,
-				EC732D781BE8587100AC13A9 /* MttAddressBar.m in Sources */,
-				EC732D801BE898CC00AC13A9 /* MttBrowserWindowManager.m in Sources */,
+				EC732D9D1BEAFE1C00AC13A9 /* MttAddressBar.m in Sources */,
+				EC732D9F1BEAFE1C00AC13A9 /* MttBrowserListController.m in Sources */,
+				EC732DA21BEAFE1C00AC13A9 /* MttMainViewController.m in Sources */,
+				EC732DA71BEB016300AC13A9 /* UIWebView+MttWebView.m in Sources */,
+				EC732DAA1BEB017600AC13A9 /* WKWebView+MttWebView.m in Sources */,
+				EC732DC61BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m in Sources */,
 				EC732D5E1BE856B300AC13A9 /* main.m in Sources */,
-				EC732D891BE8B74C00AC13A9 /* MttBrowserItemCell.m in Sources */,
+				EC732DAF1BEB315D00AC13A9 /* MttWebViewFactory.m in Sources */,
+				EC732DC21BEB49DA00AC13A9 /* MTKObserver.m in Sources */,
+				EC732DC31BEB49DA00AC13A9 /* NSObject+MTKObserving.m in Sources */,
+				EC732DA01BEAFE1C00AC13A9 /* MttBrowserWindowController.m in Sources */,
+				EC732DA11BEAFE1C00AC13A9 /* MttBrowserWindowManager.m in Sources */,
+				EC732D9E1BEAFE1C00AC13A9 /* MttBrowserItemCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WKBrowser/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.WKBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -310,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WKBrowser/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.WKBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -335,6 +423,7 @@
 				EC732D721BE856B300AC13A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

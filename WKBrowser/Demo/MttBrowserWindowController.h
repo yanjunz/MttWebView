@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import "MttWebViewKit.h"
 
-@interface MttBrowserWindowController : UIViewController<WKNavigationDelegate, WKUIDelegate>
-@property (nonatomic, strong) WKWebView *webView;
+@interface MttBrowserWindowController : UIViewController<
+MttWebViewDelegate
+//WKNavigationDelegate, WKUIDelegate
+>
+//@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) MttWebView *webView;
 - (instancetype)initWithConfiguration:(WKWebViewConfiguration *)conf;
 @end

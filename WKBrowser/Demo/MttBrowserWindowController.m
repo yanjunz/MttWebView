@@ -19,7 +19,9 @@
 - (instancetype)initWithConfiguration:(WKWebViewConfiguration *)conf
 {
     if (self = [super init]) {
-        self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:conf];
+//        self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:conf];
+        self.webView = [MttWebViewFactory createWebViewWithConfiguration:conf];
+        self.webView.mttWebViewDelegate = self;
     }
     return self;
 }
@@ -30,13 +32,13 @@
     
     self.webView.frame = self.view.bounds;
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.webView.navigationDelegate = self;
-    self.webView.UIDelegate = self;
+//    self.webView.navigationDelegate = self;
+//    self.webView.UIDelegate = self;
     [self.view addSubview:self.webView];
     
     [self.webView addObserver:self forKeyPath:@"canGoBack" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [self.webView addObserver:self forKeyPath:@"canGoForward" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+//    [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +46,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark
+//#pragma mark
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     if (object == self.webView) {
@@ -56,20 +58,33 @@
         }
     }
 }
+//
+//
+//#pragma mark WKUIDelegate
+//- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+//{
+//    MttBrowserWindowController *newBrowserWindow = [[MttBrowserWindowManager sharedInstance] createNewBrowserWindowAfter:self withConfiguration:configuration];
+//    [MttBrowserWindowManager sharedInstance].currentBrowserWindow = newBrowserWindow;
+//    return newBrowserWindow.webView;
+//}
 
-#pragma mark WKNavigationDelegate
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation
+#pragma mark MttWebViewDelegate
+- (void)mttWebView:(id<MttWebView>)webView didReceiveProgress:(CGFloat)progressValue
 {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserWindowProgressChangedNotification object:nil userInfo:@{kBrowserWindowKey : self}];
 }
 
-
-#pragma mark WKUIDelegate
-- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+- (id<MttWebView>)mttWebView:(id<MttWebView>)webView createWebViewWithConfiguration:(id)configuration forNavigationType:(MttWebViewNavigationType)navigationType
 {
     MttBrowserWindowController *newBrowserWindow = [[MttBrowserWindowManager sharedInstance] createNewBrowserWindowAfter:self withConfiguration:configuration];
     [MttBrowserWindowManager sharedInstance].currentBrowserWindow = newBrowserWindow;
     return newBrowserWindow.webView;
+}
+
+#pragma mark UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"scrollViewDidScroll %@ %f", scrollView, scrollView.contentOffset.y);
 }
 
 @end

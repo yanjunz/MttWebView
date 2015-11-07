@@ -9,6 +9,7 @@
 #import "MttMainViewController.h"
 #import "MttBrowserWindowManager.h"
 #import "MttNotifications.h"
+#import <objc/runtime.h>
 
 @interface MttMainViewController ()
 @property (nonatomic, strong) MttBrowserWindowController *currentBrowserWindow;
@@ -18,6 +19,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    Method method = class_getInstanceMethod(self.class, @selector(viewDidLoad));
+    IMP imp = method_getImplementation(method);
+    NSLog(@"imp = %p", imp);
+    
+    
+    
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onBrowserWindowStateChanged:) name:kBrowserWindowStateChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onBrowserWindowProgressChanged:) name:kBrowserWindowProgressChangedNotification object:nil];
