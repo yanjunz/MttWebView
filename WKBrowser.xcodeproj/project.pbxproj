@@ -26,6 +26,9 @@
 		EC732DC31BEB49DA00AC13A9 /* NSObject+MTKObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DBD1BEB49DA00AC13A9 /* NSObject+MTKObserving.m */; };
 		EC732DC61BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DC51BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m */; settings = {ASSET_TAGS = (); }; };
 		EC732E131BEDB6CD00AC13A9 /* MttWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E121BEDB6CD00AC13A9 /* MttWebView.m */; settings = {ASSET_TAGS = (); }; };
+		EC732E1A1BEDF34300AC13A9 /* NSObject+MttExt.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E191BEDF34300AC13A9 /* NSObject+MttExt.m */; settings = {ASSET_TAGS = (); }; };
+		EC732E1D1BEDF41B00AC13A9 /* MttScriptMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E1C1BEDF41B00AC13A9 /* MttScriptMessageHandler.m */; settings = {ASSET_TAGS = (); }; };
+		EC732E201BEE0C5700AC13A9 /* MttWebView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E1E1BEE0C5700AC13A9 /* MttWebView+Utils.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +75,12 @@
 		EC732DC41BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScrollViewDelegateProxy.h; sourceTree = "<group>"; };
 		EC732DC51BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScrollViewDelegateProxy.m; sourceTree = "<group>"; };
 		EC732E121BEDB6CD00AC13A9 /* MttWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttWebView.m; sourceTree = "<group>"; };
+		EC732E181BEDF34300AC13A9 /* NSObject+MttExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MttExt.h"; sourceTree = "<group>"; };
+		EC732E191BEDF34300AC13A9 /* NSObject+MttExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MttExt.m"; sourceTree = "<group>"; };
+		EC732E1B1BEDF41B00AC13A9 /* MttScriptMessageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MttScriptMessageHandler.h; sourceTree = "<group>"; };
+		EC732E1C1BEDF41B00AC13A9 /* MttScriptMessageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MttScriptMessageHandler.m; sourceTree = "<group>"; };
+		EC732E1E1BEE0C5700AC13A9 /* MttWebView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MttWebView+Utils.m"; sourceTree = "<group>"; };
+		EC732E1F1BEE0C5700AC13A9 /* MttWebView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MttWebView+Utils.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +115,7 @@
 		EC732D5B1BE856B300AC13A9 /* WKBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				EC732E161BEDF34300AC13A9 /* Categories */,
 				EC732DB71BEB49DA00AC13A9 /* Block-KVO */,
 				EC732DA31BEAFE6600AC13A9 /* MttWebView */,
 				EC732D8E1BEAFE1C00AC13A9 /* Demo */,
@@ -152,6 +162,8 @@
 		EC732DA31BEAFE6600AC13A9 /* MttWebView */ = {
 			isa = PBXGroup;
 			children = (
+				EC732E1E1BEE0C5700AC13A9 /* MttWebView+Utils.m */,
+				EC732E1F1BEE0C5700AC13A9 /* MttWebView+Utils.h */,
 				EC732DA41BEAFE7100AC13A9 /* MttWebView.h */,
 				EC732E121BEDB6CD00AC13A9 /* MttWebView.m */,
 				EC732DA51BEB016300AC13A9 /* UIWebView+MttWebView.h */,
@@ -163,6 +175,8 @@
 				EC732DB01BEB325A00AC13A9 /* MttWebViewKit.h */,
 				EC732DC41BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.h */,
 				EC732DC51BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m */,
+				EC732E1B1BEDF41B00AC13A9 /* MttScriptMessageHandler.h */,
+				EC732E1C1BEDF41B00AC13A9 /* MttScriptMessageHandler.m */,
 			);
 			path = MttWebView;
 			sourceTree = "<group>";
@@ -189,6 +203,23 @@
 				EC732DC11BEB49DA00AC13A9 /* scope.h */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		EC732E161BEDF34300AC13A9 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				EC732E171BEDF34300AC13A9 /* Ext */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		EC732E171BEDF34300AC13A9 /* Ext */ = {
+			isa = PBXGroup;
+			children = (
+				EC732E181BEDF34300AC13A9 /* NSObject+MttExt.h */,
+				EC732E191BEDF34300AC13A9 /* NSObject+MttExt.m */,
+			);
+			path = Ext;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,13 +293,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC732E1D1BEDF41B00AC13A9 /* MttScriptMessageHandler.m in Sources */,
 				EC732D611BE856B300AC13A9 /* AppDelegate.m in Sources */,
 				EC732D9D1BEAFE1C00AC13A9 /* MttAddressBar.m in Sources */,
 				EC732D9F1BEAFE1C00AC13A9 /* MttBrowserListController.m in Sources */,
 				EC732DA21BEAFE1C00AC13A9 /* MttMainViewController.m in Sources */,
 				EC732DA71BEB016300AC13A9 /* UIWebView+MttWebView.m in Sources */,
+				EC732E1A1BEDF34300AC13A9 /* NSObject+MttExt.m in Sources */,
 				EC732DAA1BEB017600AC13A9 /* WKWebView+MttWebView.m in Sources */,
 				EC732DC61BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m in Sources */,
+				EC732E201BEE0C5700AC13A9 /* MttWebView+Utils.m in Sources */,
 				EC732E131BEDB6CD00AC13A9 /* MttWebView.m in Sources */,
 				EC732D5E1BE856B300AC13A9 /* main.m in Sources */,
 				EC732DAF1BEB315D00AC13A9 /* MttWebViewFactory.m in Sources */,

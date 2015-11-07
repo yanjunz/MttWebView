@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-#define MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
+//#define MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
 
 @protocol MttWebView;
 
@@ -79,6 +79,8 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 - (void)stopLoading;
 
 - (void)evaluateJavaScript: (NSString *) javaScriptString completionHandler: (void (^)(id ret, NSError *error)) completionHandler;
+
+- (void)addScriptMessage:(NSString *)scriptMessage handler:(id)handler;
 
 @end
 

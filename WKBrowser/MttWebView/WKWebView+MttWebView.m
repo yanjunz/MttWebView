@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import "MTKObserving.h"
 #import "UIScrollViewDelegateProxy.h"
+#import "MttScriptMessageHandler.h"
 
 @implementation WKWebView (MttWebView)
 
@@ -60,6 +61,28 @@
 - (void)setScalesPageToFit:(BOOL) setPages
 {
     return; // not supported in WKWebView
+}
+
+- (void)addScriptMessage:(NSString *)scriptMessage handler:(id)handler
+{
+    WKUserContentController *userContentController = self.configuration.userContentController;
+    
+    MttScriptMessageHandler *scriptMessageHandler = [self scriptMessageHandler];
+    if (!scriptMessageHandler) {
+        scriptMessageHandler = [MttScriptMessageHandler new];
+        [self setScriptMessageHandler:scriptMessageHandler];
+    }
+    [scriptMessageHandler addScriptMessage:scriptMessage handler:handler];
+    [userContentController addScriptMessageHandler:scriptMessageHandler name:scriptMessage];
+    
+    NSString *jsFormat = @"function %@() {var that = webkit.messageHandlers.%@; that.postMessage.apply(that, [JSON.stringify(Array.prototype.slice.call(arguments))]);}";
+    WKUserScript *userScript = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:jsFormat, scriptMessage, scriptMessage]
+                                                      injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                   forMainFrameOnly:YES];
+    [userContentController addUserScript:userScript];
+    if (self.URL != nil) {
+        [self evaluateJavaScript:userScript.source completionHandler:nil];
+    }
 }
 
 
@@ -130,6 +153,16 @@
 - (void)setScrollViewDelegateProxy:(UIScrollViewDelegateProxy *)scrollViewDelegateProxy
 {
     objc_setAssociatedObject(self, @selector(scrollViewDelegateProxy), scrollViewDelegateProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (MttScriptMessageHandler *)scriptMessageHandler
+{
+    return objc_getAssociatedObject(self, @selector(scriptMessageHandler));
+}
+
+- (void)setScriptMessageHandler:(MttScriptMessageHandler *)scriptMessageHandler
+{
+    objc_setAssociatedObject(self, @selector(scriptMessageHandler), scriptMessageHandler, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

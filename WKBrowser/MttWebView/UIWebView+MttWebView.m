@@ -8,10 +8,13 @@
 
 #import "UIWebView+MttWebView.h"
 #import <objc/runtime.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 #import "UIScrollViewDelegateProxy.h"
+#import "NSObject+MttExt.h"
 
 @implementation UIWebView (MttWebView)
 
+#pragma mark MttWebView
 - (instancetype)initWithFrame:(CGRect)frame configuration:(id)configuration
 {
     if (self = [self initWithFrame:frame]) {
@@ -53,8 +56,6 @@
     }
 }
 
-
-#pragma mark Public
 - (NSURL *) URL
 {
     return [[self request] URL];
@@ -94,6 +95,11 @@
     }
 }
 
+- (void)addScriptMessage:(NSString *)scriptMessage handler:(id)handler
+{
+    [self mttJavaScriptContext][scriptMessage] = handler;
+}
+
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
@@ -127,6 +133,11 @@
 - (void)setScrollViewDelegateProxy:(UIScrollViewDelegateProxy *)scrollViewDelegateProxy
 {
     objc_setAssociatedObject(self, @selector(scrollViewDelegateProxy), scrollViewDelegateProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (JSContext *)mttJavaScriptContext
+{
+    return [self findValueForKeyPathCrumbs:@[@"documentV", @"iew.webView.m",@"ainFrame.java", @"ScriptContext"]];
 }
 
 @end

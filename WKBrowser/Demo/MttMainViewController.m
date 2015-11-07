@@ -19,9 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    Method method = class_getInstanceMethod(self.class, @selector(viewDidLoad));
-    IMP imp = method_getImplementation(method);
-    NSLog(@"imp = %p", imp);
     
     
     
@@ -39,6 +36,34 @@
     
     [self.addressBar update];
     [self.currentBrowserWindow.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mail.163.com"]]];
+    
+    
+//    Method method = class_getInstanceMethod(self.class, @selector(viewDidLoad));
+//    IMP imp = method_getImplementation(method);
+//    NSLog(@"imp = %p", imp);
+    
+    [self performSelector:@selector(test) withObject:nil afterDelay:3];
+}
+
+- (void)test
+{
+    NSLog(@"testing script message...");
+    
+    [self.currentBrowserWindow.webView addScriptMessage:@"fun0" handler:^{
+        NSLog(@"JS call fun0()");
+    }];
+    
+    [self.currentBrowserWindow.webView addScriptMessage:@"fun1" handler:^(NSString *param1){
+        NSLog(@"JS call fun1(%@)", param1);
+    }];
+    
+    [self.currentBrowserWindow.webView addScriptMessage:@"fun2" handler:^(NSDictionary *param1, NSInteger param2){
+        NSLog(@"JS call fun2(%@, %ld)", param1, (long)param2);
+    }];
+    
+    [self.currentBrowserWindow.webView evaluateJavaScript:@"fun0()" successHandler:nil failHandler:nil];
+    [self.currentBrowserWindow.webView evaluateJavaScript:@"fun1('a')" successHandler:nil failHandler:nil];
+    [self.currentBrowserWindow.webView evaluateJavaScript:@"fun2({'a' : 'b', 3:4}, 2)" successHandler:nil failHandler:nil];
 }
 
 - (void)didReceiveMemoryWarning {
