@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 };
 
 @protocol MttWebViewDelegate <UIScrollViewDelegate>
+@optional
 // Navigation Delegate
 - (BOOL)mttWebView:(id<MttWebView>)webView decidePolicyWithRequest:(NSURLRequest *)request
     navigationType:(MttWebViewNavigationType)navigationType
@@ -70,6 +71,8 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 - (void)destroyWebView;
 
 - (void)loadRequest: (NSURLRequest *) request;
+
+- (void)loadHTMLString:(NSString *)string baseURL:(nullable NSURL *)baseURL;
 
 - (BOOL)canGoBack;
 
