@@ -74,7 +74,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserWindowProgressChangedNotification object:nil userInfo:@{kBrowserWindowKey : self}];
 }
 
-- (id<MttWebView>)mttWebView:(id<MttWebView>)webView createWebViewWithConfiguration:(id)configuration forNavigationType:(MttWebViewNavigationType)navigationType
+- (id<MttWebView>)mttWebView:(id<MttWebView>)webView createWebViewWithConfiguration:(id)configuration withRequest:(NSURLRequest *)request navigationType:(MttWebViewNavigationType)navigationType isMainFrame:(BOOL)isMainFrame
 {
     MttBrowserWindowController *newBrowserWindow = [[MttBrowserWindowManager sharedInstance] createNewBrowserWindowAfter:self withConfiguration:configuration];
     [MttBrowserWindowManager sharedInstance].currentBrowserWindow = newBrowserWindow;

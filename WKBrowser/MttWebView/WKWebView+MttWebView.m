@@ -90,8 +90,11 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
     BOOL allow = YES;
-    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyForNavigationType:)]) {
-        allow = [self.mttWebViewDelegate mttWebView:self decidePolicyForNavigationType:(NSInteger)navigationAction.navigationType];
+    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyWithRequest:navigationType:isMainFrame:)]) {
+        allow = [self.mttWebViewDelegate mttWebView:self
+                            decidePolicyWithRequest:navigationAction.targetFrame.request
+                                     navigationType:(NSInteger)navigationAction.navigationType
+                                        isMainFrame:navigationAction.targetFrame.isMainFrame];
     }
     if (decisionHandler) {
         decisionHandler(allow);
@@ -136,8 +139,11 @@
 #pragma mark WKUIDelegate
 - (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 {
-    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:createWebViewWithConfiguration:forNavigationType:)]) {
-        return (WKWebView *)[self.mttWebViewDelegate mttWebView:self createWebViewWithConfiguration:configuration forNavigationType:(NSInteger)navigationAction.navigationType];
+    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:createWebViewWithConfiguration:withRequest:navigationType:isMainFrame:)]) {
+        return (WKWebView *)[self.mttWebViewDelegate mttWebView:self createWebViewWithConfiguration:configuration
+                                                    withRequest:navigationAction.targetFrame.request
+                                                 navigationType:(NSInteger)navigationAction.navigationType
+                                                    isMainFrame:navigationAction.targetFrame.isMainFrame];
     }
     else {
         return nil;

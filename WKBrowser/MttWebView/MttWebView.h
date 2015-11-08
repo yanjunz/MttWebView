@@ -25,7 +25,10 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 
 @protocol MttWebViewDelegate <UIScrollViewDelegate>
 // Navigation Delegate
-- (BOOL)mttWebView:(id<MttWebView>)webView decidePolicyForNavigationType:(MttWebViewNavigationType)navigationType;
+- (BOOL)mttWebView:(id<MttWebView>)webView decidePolicyWithRequest:(NSURLRequest *)request
+    navigationType:(MttWebViewNavigationType)navigationType
+       isMainFrame:(BOOL)isMainFrame;
+
 //- (void)mttWebView:(id<MttWebView>)webView didReceiveTitle:(NSString *)title;
 - (void)mttWebView:(id<MttWebView>)webView didReceiveProgress:(CGFloat)progressValue;
 
@@ -40,7 +43,9 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 
 // UI Delegate
 - (id<MttWebView>)mttWebView:(id<MttWebView>)webView createWebViewWithConfiguration:(id)configuration
-           forNavigationType:(MttWebViewNavigationType)navigationType;
+                 withRequest:(NSURLRequest *)request
+              navigationType:(MttWebViewNavigationType)navigationType
+                 isMainFrame:(BOOL)isMainFrame;
 @end
 
 @protocol MttWebView <NSObject>

@@ -103,8 +103,8 @@
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyForNavigationType:)]) {
-        return [self.mttWebViewDelegate mttWebView:self decidePolicyForNavigationType:(NSInteger)navigationType];
+    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyWithRequest:navigationType:isMainFrame:)]) {
+        return [self.mttWebViewDelegate mttWebView:self decidePolicyWithRequest:request navigationType:(NSInteger)navigationType isMainFrame:YES];
     }
     return YES;
 }
