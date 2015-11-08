@@ -69,13 +69,48 @@
 //}
 
 #pragma mark MttWebViewDelegate
+// Navigation Delegate
+- (BOOL)mttWebView:(id<MttWebView>)webView decidePolicyWithRequest:(NSURLRequest *)request
+    navigationType:(MttWebViewNavigationType)navigationType
+       isMainFrame:(BOOL)isMainFrame
+{
+    NSLog(@"[MttWebView] decidePolicyWithRequest %@ %ld %d", request, (long)navigationType, isMainFrame);
+    return YES;
+}
+
+/* mainfarme 开始load */
+- (void)mttWebViewDidStartProvisionalNavigation:(id<MttWebView>)webView
+{
+    NSLog(@"[MttWebView] mttWebViewDidStartProvisionalNavigation %@", [webView URL]);
+}
+
+/* mainframe内容到了 */
+- (void)mttWebViewDidCommitNavigation:(id<MttWebView>)webView
+{
+    NSLog(@"[MttWebView] mttWebViewDidCommitNavigation %@", [webView URL]);
+}
+
+/* mainframe加载结束 */
+- (void)mttWebViewDidFinishNavigation:(id<MttWebView>)webView
+{
+    NSLog(@"[MttWebView] mttWebViewDidFinishNavigation %@", [webView URL]);
+}
+
+/* mainframe加载出错 */
+- (void)mttWebView:(id<MttWebView>)webView didFailNavigationWithError:(NSError *)error
+{
+    NSLog(@"[MttWebView] didFailNavigationWithError %@ %@", [webView URL], error);
+}
+
 - (void)mttWebView:(id<MttWebView>)webView didReceiveProgress:(CGFloat)progressValue
 {
+    NSLog(@"[MttWebView] didReceiveProgress %@ %f", [webView URL], progressValue);
     [[NSNotificationCenter defaultCenter] postNotificationName:kBrowserWindowProgressChangedNotification object:nil userInfo:@{kBrowserWindowKey : self}];
 }
 
 - (id<MttWebView>)mttWebView:(id<MttWebView>)webView createWebViewWithConfiguration:(id)configuration withRequest:(NSURLRequest *)request navigationType:(MttWebViewNavigationType)navigationType isMainFrame:(BOOL)isMainFrame
 {
+    NSLog(@"[MttWebView] createWebViewWithConfiguration %@", [webView URL]);
     MttBrowserWindowController *newBrowserWindow = [[MttBrowserWindowManager sharedInstance] createNewBrowserWindowAfter:self withConfiguration:configuration];
     [MttBrowserWindowManager sharedInstance].currentBrowserWindow = newBrowserWindow;
     return newBrowserWindow.webView;

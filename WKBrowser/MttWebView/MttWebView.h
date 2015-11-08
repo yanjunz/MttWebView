@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
     MttWebViewNavigationTypeBackForward,
     MttWebViewNavigationTypeReload,
     MttWebViewNavigationTypeFormResubmitted,
-    MttWebViewNavigationTypeOther
+    MttWebViewNavigationTypeOther = -1,
 };
 
 @protocol MttWebViewDelegate <UIScrollViewDelegate>

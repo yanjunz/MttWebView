@@ -104,24 +104,41 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyWithRequest:navigationType:isMainFrame:)]) {
-        return [self.mttWebViewDelegate mttWebView:self decidePolicyWithRequest:request navigationType:(NSInteger)navigationType isMainFrame:YES];
+        MttWebViewNavigationType mttNavigationType = navigationType == UIWebViewNavigationTypeOther ? MttWebViewNavigationTypeOther : (NSInteger)navigationType;
+        BOOL isMainFrame = [request.URL.absoluteString isEqualToString:webView.URL.absoluteString];
+        return [self.mttWebViewDelegate mttWebView:self decidePolicyWithRequest:request navigationType:mttNavigationType isMainFrame:isMainFrame];
     }
     return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebViewDidStartProvisionalNavigation:)]) {
+        [self.mttWebViewDelegate mttWebViewDidStartProvisionalNavigation:webView];
+    }
+    
     self.estimatedProgress = 0;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebViewDidCommitNavigation:)]) {
+        [self.mttWebViewDelegate mttWebViewDidCommitNavigation:webView];
+    }
+    
     self.estimatedProgress = 1;
+    
+    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebViewDidFinishNavigation:)]) {
+        [self.mttWebViewDelegate mttWebViewDidFinishNavigation:webView];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
 {
     self.estimatedProgress = 1;
+    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:didFailNavigationWithError:)]) {
+        [self.mttWebViewDelegate mttWebView:webView didFailNavigationWithError:error];
+    }
 }
 
 #pragma mark Private
