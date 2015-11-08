@@ -65,6 +65,8 @@
 
 - (void)addScriptMessage:(NSString *)scriptMessage handler:(id)handler
 {
+    NSLog(@"[WKWebView] addScriptMessage %@", scriptMessage);
+    
     WKUserContentController *userContentController = self.configuration.userContentController;
     
     MttScriptMessageHandler *scriptMessageHandler = [self scriptMessageHandler];
@@ -73,6 +75,7 @@
         [self setScriptMessageHandler:scriptMessageHandler];
     }
     [scriptMessageHandler addScriptMessage:scriptMessage handler:handler];
+    [userContentController removeScriptMessageHandlerForName:scriptMessage]; // Can't add if existed
     [userContentController addScriptMessageHandler:scriptMessageHandler name:scriptMessage];
     
     NSString *jsFormat = @"function %@() {var that = webkit.messageHandlers.%@; that.postMessage.apply(that, [JSON.stringify(Array.prototype.slice.call(arguments))]);}";
@@ -89,16 +92,24 @@
 #pragma mark WKNavigationDelegate
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    BOOL allow = YES;
-    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyWithRequest:navigationType:isMainFrame:)]) {
-        allow = [self.mttWebViewDelegate mttWebView:self
+    NSLog(@"[WKWebView] decidePolicy...");
+    if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyWithRequest:navigationType:isMainFrame:decisionHandler:)]) {
+        [self.mttWebViewDelegate mttWebView:self
                             decidePolicyWithRequest:navigationAction.targetFrame.request
                                      navigationType:(NSInteger)navigationAction.navigationType
-                                        isMainFrame:navigationAction.targetFrame.isMainFrame];
+                                isMainFrame:navigationAction.targetFrame.isMainFrame decisionHandler:^(BOOL allow){
+                                    NSLog(@"[WKWebView] decidePolicy done!");
+                                    if (decisionHandler) {
+                                        decisionHandler(allow ? WKNavigationActionPolicyAllow : WKNavigationActionPolicyCancel);
+                                    }
+                                }];
     }
-    if (decisionHandler) {
-        decisionHandler(allow);
+    else {
+        if (decisionHandler) {
+            decisionHandler(WKNavigationActionPolicyAllow);
+        }
     }
+
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation

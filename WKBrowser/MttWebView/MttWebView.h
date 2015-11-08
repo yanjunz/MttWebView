@@ -23,14 +23,24 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
     MttWebViewNavigationTypeOther = -1,
 };
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnullability-completeness"
+
 @protocol MttWebViewDelegate <UIScrollViewDelegate>
 @optional
 // Navigation Delegate
-- (BOOL)mttWebView:(id<MttWebView>)webView decidePolicyWithRequest:(NSURLRequest *)request
+/**
+ * Ask delegate to decide whether MttWebView go on with the request. It is also a replacement for shouldStartLoadWithRequest in UIWebView
+ *
+ * NOTE: Why use decisionHandler instead of return value?
+ * #1 since WKWebView should not allow addUserScript within decidePolicy
+ * #2 decision should be called ASAP so that WebView can request asynchronously
+ **/
+- (void)mttWebView:(id<MttWebView>)webView decidePolicyWithRequest:(NSURLRequest *)request
     navigationType:(MttWebViewNavigationType)navigationType
-       isMainFrame:(BOOL)isMainFrame;
+       isMainFrame:(BOOL)isMainFrame
+   decisionHandler:(void (^)(BOOL allow))decisionHandler;
 
-//- (void)mttWebView:(id<MttWebView>)webView didReceiveTitle:(NSString *)title;
 - (void)mttWebView:(id<MttWebView>)webView didReceiveProgress:(CGFloat)progressValue;
 
 /* mainfarme 开始load */
@@ -92,7 +102,7 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 
 @end
 
-
+#pragma clang diagnostic pop
 
 /**
  * Macro to define MttWebView category.

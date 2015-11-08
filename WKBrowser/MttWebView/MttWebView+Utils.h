@@ -28,4 +28,6 @@ AS_MttWebView_Category(Utils)
 
 // Deprecated! Just for debug
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
+- (void)stringByEvaluatingJavaScriptFromString:(NSString *)script withDelay:(NSTimeInterval)delay;
+
 @end

@@ -70,12 +70,19 @@
 
 #pragma mark MttWebViewDelegate
 // Navigation Delegate
-- (BOOL)mttWebView:(id<MttWebView>)webView decidePolicyWithRequest:(NSURLRequest *)request
+- (void)mttWebView:(id<MttWebView>)webView decidePolicyWithRequest:(NSURLRequest *)request
     navigationType:(MttWebViewNavigationType)navigationType
        isMainFrame:(BOOL)isMainFrame
+   decisionHandler:(void (^)(BOOL))decisionHandler
 {
     NSLog(@"[MttWebView] decidePolicyWithRequest %@ %ld %d", request, (long)navigationType, isMainFrame);
-    return YES;
+    decisionHandler(YES);
+    
+    // Should not addScriptMessage in decidePolicy
+    [webView addScriptMessage:@"hello" handler:^(NSString *hello){
+        NSLog(@"hello %@", hello);
+    }];
+    [webView evaluateJavaScript:@"hello('12')" completionHandler:nil];
 }
 
 /* mainfarme 开始load */

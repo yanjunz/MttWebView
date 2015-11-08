@@ -61,9 +61,11 @@ DEF_MttWebView_Category(Utils)
 
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script
 {
+    NSLog(@"[MttWebView] stringByEvaluatingJavaScriptFromString... %@", [script substringToIndex:script.length > 20 ? 20 : script.length]);
     __block NSString *resultString = nil;
     __block BOOL finished = NO;
     [[self asWebView] evaluateJavaScript:script completionHandler:^(id result, NSError *error) {
+        NSLog(@"[MttWebView] evaluateJavaScript %@", result);
         if (error == nil) {
             if (result != nil) {
                 resultString = [NSString stringWithFormat:@"%@", result];
@@ -79,7 +81,13 @@ DEF_MttWebView_Category(Utils)
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                  beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
     }
+    NSLog(@"[MttWebView] stringByEvaluatingJavaScriptFromString Done! %@", [script substringToIndex:script.length > 20 ? 20 : script.length]);
     return resultString;
+}
+
+- (void)stringByEvaluatingJavaScriptFromString:(NSString *)script withDelay:(NSTimeInterval)delay
+{
+    [self performSelector:@selector(stringByEvaluatingJavaScriptFromString:) withObject:script afterDelay:delay];
 }
 
 @end

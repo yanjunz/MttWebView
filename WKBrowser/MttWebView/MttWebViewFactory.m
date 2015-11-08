@@ -24,7 +24,10 @@
     
 #else // MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
     
-    if (!NSClassFromString(@"WKWebView")) {
+    if (NSClassFromString(@"WKWebView")) {
+        if (configuration == nil) {
+            configuration = [[WKWebViewConfiguration alloc] init];
+        }
         webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     }
     else {
