@@ -9,6 +9,10 @@
 #import <WebKit/WebKit.h>
 #import "MttWebView.h"
 
+#ifdef MTT_FEATURE_WKWEBVIEW
+
 @interface WKWebView (MttWebView) <MttWebView, WKNavigationDelegate, WKUIDelegate>
 
 @end
+
+#endif // MTT_FEATURE_WKWEBVIEW

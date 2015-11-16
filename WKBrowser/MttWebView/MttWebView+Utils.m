@@ -59,35 +59,40 @@ DEF_MttWebView_Category(Utils)
     }];
 }
 
-- (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script
+- (void)evaluateJavaScript:(NSString *)javaScriptString
 {
-    NSLog(@"[MttWebView] stringByEvaluatingJavaScriptFromString... %@", [script substringToIndex:script.length > 20 ? 20 : script.length]);
-    __block NSString *resultString = nil;
-    __block BOOL finished = NO;
-    [[self asWebView] evaluateJavaScript:script completionHandler:^(id result, NSError *error) {
-        NSLog(@"[MttWebView] evaluateJavaScript %@", result);
-        if (error == nil) {
-            if (result != nil) {
-                resultString = [NSString stringWithFormat:@"%@", result];
-            }
-        } else {
-            NSLog(@"evaluateJavaScript error : %@", error.localizedDescription);
-        }
-        finished = YES;
-    }];
-    while (!finished)
-    {
-//        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
-    }
-    NSLog(@"[MttWebView] stringByEvaluatingJavaScriptFromString Done! %@", [script substringToIndex:script.length > 20 ? 20 : script.length]);
-    return resultString;
+    [self evaluateJavaScript:javaScriptString successHandler:nil failHandler:nil];
 }
 
-- (void)stringByEvaluatingJavaScriptFromString:(NSString *)script withDelay:(NSTimeInterval)delay
+- (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script
 {
-    [self performSelector:@selector(stringByEvaluatingJavaScriptFromString:) withObject:script afterDelay:delay];
+#if defined(__DEBUG__) || defined(DEBUG)
+    NSString *shortOne = script;
+    if (shortOne.length > 30) {
+        shortOne = [NSString stringWithFormat:@"%@...%@", [script substringToIndex:15], [script substringFromIndex:shortOne.length - 15]];
+    }
+#endif // 
+    WVLog(@"[MttWebView] stringByEvaluatingJavaScriptFromString... \n%@\n", shortOne);
+    
+    __block id evalResult = nil;
+    dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+    
+    [[self asWebView] evaluateJavaScript:script completionHandler:^(id result, NSError *error) {
+        WVLog(@"[MttWebView] evaluateJavaScript %@ %@ for %@", result, error, shortOne);
+        evalResult = result;
+        dispatch_semaphore_signal(waitSemaphore);
+    }];
+    
+    NSDate *bailTime = [NSDate dateWithTimeIntervalSinceNow:2.5];
+    while (dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_NOW)) {
+        if ([bailTime compare:[NSDate date]] == NSOrderedAscending)
+            return @"";
+        
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+    
+    WVLog(@"[MttWebView] stringByEvaluatingJavaScriptFromString Done! %@", shortOne);
+    return evalResult ? [evalResult description] : @"";
 }
 
 @end

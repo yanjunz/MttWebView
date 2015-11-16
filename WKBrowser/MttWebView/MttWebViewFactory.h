@@ -11,4 +11,8 @@
 
 @interface MttWebViewFactory : NSObject
 + (MttWebView *)createWebViewWithConfiguration:(id)configuration;
+
+// For Debug
++ (BOOL)isWKWebViewEnabled;
++ (void)setWKWebViewEnabled:(BOOL)wkWebViewEnabled;
 @end

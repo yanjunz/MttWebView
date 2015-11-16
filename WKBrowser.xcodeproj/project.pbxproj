@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EC1197301BEB508200BBECEC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC11972F1BEB508200BBECEC /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		EC4451D11BF9DDC300BB5475 /* DeallocBlockExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4451CE1BF9DDC300BB5475 /* DeallocBlockExecutor.m */; };
+		EC4451D21BF9DDC300BB5475 /* NSObject+DeallocBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4451D01BF9DDC300BB5475 /* NSObject+DeallocBlock.m */; };
 		EC732D5E1BE856B300AC13A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D5D1BE856B300AC13A9 /* main.m */; };
 		EC732D611BE856B300AC13A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732D601BE856B300AC13A9 /* AppDelegate.m */; };
 		EC732D671BE856B300AC13A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC732D651BE856B300AC13A9 /* Main.storyboard */; };
@@ -24,15 +26,19 @@
 		EC732DAF1BEB315D00AC13A9 /* MttWebViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DAE1BEB315D00AC13A9 /* MttWebViewFactory.m */; };
 		EC732DC21BEB49DA00AC13A9 /* MTKObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DB91BEB49DA00AC13A9 /* MTKObserver.m */; };
 		EC732DC31BEB49DA00AC13A9 /* NSObject+MTKObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DBD1BEB49DA00AC13A9 /* NSObject+MTKObserving.m */; };
-		EC732DC61BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DC51BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m */; settings = {ASSET_TAGS = (); }; };
-		EC732E131BEDB6CD00AC13A9 /* MttWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E121BEDB6CD00AC13A9 /* MttWebView.m */; settings = {ASSET_TAGS = (); }; };
-		EC732E1A1BEDF34300AC13A9 /* NSObject+MttExt.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E191BEDF34300AC13A9 /* NSObject+MttExt.m */; settings = {ASSET_TAGS = (); }; };
-		EC732E1D1BEDF41B00AC13A9 /* MttScriptMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E1C1BEDF41B00AC13A9 /* MttScriptMessageHandler.m */; settings = {ASSET_TAGS = (); }; };
-		EC732E201BEE0C5700AC13A9 /* MttWebView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E1E1BEE0C5700AC13A9 /* MttWebView+Utils.m */; settings = {ASSET_TAGS = (); }; };
+		EC732DC61BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732DC51BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m */; };
+		EC732E131BEDB6CD00AC13A9 /* MttWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E121BEDB6CD00AC13A9 /* MttWebView.m */; };
+		EC732E1A1BEDF34300AC13A9 /* NSObject+MttExt.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E191BEDF34300AC13A9 /* NSObject+MttExt.m */; };
+		EC732E1D1BEDF41B00AC13A9 /* MttScriptMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E1C1BEDF41B00AC13A9 /* MttScriptMessageHandler.m */; };
+		EC732E201BEE0C5700AC13A9 /* MttWebView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EC732E1E1BEE0C5700AC13A9 /* MttWebView+Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EC11972F1BEB508200BBECEC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		EC4451CD1BF9DDC300BB5475 /* DeallocBlockExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeallocBlockExecutor.h; sourceTree = "<group>"; };
+		EC4451CE1BF9DDC300BB5475 /* DeallocBlockExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeallocBlockExecutor.m; sourceTree = "<group>"; };
+		EC4451CF1BF9DDC300BB5475 /* NSObject+DeallocBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DeallocBlock.h"; sourceTree = "<group>"; };
+		EC4451D01BF9DDC300BB5475 /* NSObject+DeallocBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DeallocBlock.m"; sourceTree = "<group>"; };
 		EC732D591BE856B300AC13A9 /* WKBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WKBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC732D5D1BE856B300AC13A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EC732D5F1BE856B300AC13A9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -95,6 +101,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC4451CC1BF9DDC300BB5475 /* DeallocBlockExecutor */ = {
+			isa = PBXGroup;
+			children = (
+				EC4451CD1BF9DDC300BB5475 /* DeallocBlockExecutor.h */,
+				EC4451CE1BF9DDC300BB5475 /* DeallocBlockExecutor.m */,
+				EC4451CF1BF9DDC300BB5475 /* NSObject+DeallocBlock.h */,
+				EC4451D01BF9DDC300BB5475 /* NSObject+DeallocBlock.m */,
+			);
+			path = DeallocBlockExecutor;
+			sourceTree = "<group>";
+		};
 		EC732D501BE856B300AC13A9 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +132,7 @@
 		EC732D5B1BE856B300AC13A9 /* WKBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				EC4451CC1BF9DDC300BB5475 /* DeallocBlockExecutor */,
 				EC732E161BEDF34300AC13A9 /* Categories */,
 				EC732DB71BEB49DA00AC13A9 /* Block-KVO */,
 				EC732DA31BEAFE6600AC13A9 /* MttWebView */,
@@ -298,8 +316,10 @@
 				EC732D9D1BEAFE1C00AC13A9 /* MttAddressBar.m in Sources */,
 				EC732D9F1BEAFE1C00AC13A9 /* MttBrowserListController.m in Sources */,
 				EC732DA21BEAFE1C00AC13A9 /* MttMainViewController.m in Sources */,
+				EC4451D11BF9DDC300BB5475 /* DeallocBlockExecutor.m in Sources */,
 				EC732DA71BEB016300AC13A9 /* UIWebView+MttWebView.m in Sources */,
 				EC732E1A1BEDF34300AC13A9 /* NSObject+MttExt.m in Sources */,
+				EC4451D21BF9DDC300BB5475 /* NSObject+DeallocBlock.m in Sources */,
 				EC732DAA1BEB017600AC13A9 /* WKWebView+MttWebView.m in Sources */,
 				EC732DC61BEB53CB00AC13A9 /* UIScrollViewDelegateProxy.m in Sources */,
 				EC732E201BEE0C5700AC13A9 /* MttWebView+Utils.m in Sources */,

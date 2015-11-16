@@ -28,11 +28,6 @@
     self.delegate = self;
 }
 
-- (void)destroyWebView
-{
-    
-}
-
 - (id<MttWebViewDelegate>)mttWebViewDelegate
 {
     return objc_getAssociatedObject(self, @selector(mttWebViewDelegate));
@@ -80,18 +75,19 @@
     }
 }
 
-
-/*
- * Simple way to implement WKWebView's JavaScript handling in UIWebView.
- * Just evaluates the JavaScript and passes the result to completionHandler, if it exists.
- * Since this is defined in FLWebViewProvider, we can call this method regardless of the web view used.
- */
 - (void) evaluateJavaScript: (NSString *) javaScriptString completionHandler: (void (^)(id, NSError *)) completionHandler
 {
     NSString *string = [self stringByEvaluatingJavaScriptFromString: javaScriptString];
     
+    id result = nil;
+    if (string.length > 0) {
+        // Use JSContext to convert string return value to Object
+        JSContext *jsContext = [self mttJavaScriptContext];
+        result = [[jsContext evaluateScript:string] toObject];
+    }
+    
     if (completionHandler) {
-        completionHandler(string, nil);
+        completionHandler(result, nil);
     }
 }
 
@@ -103,6 +99,7 @@
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    WVLog(@"[UIWebView] shouldStartLoadWithRequest %@", request.URL);
     __block BOOL ret = YES;
     if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyWithRequest:navigationType:isMainFrame:decisionHandler:)]) {
         MttWebViewNavigationType mttNavigationType = navigationType == UIWebViewNavigationTypeOther ? MttWebViewNavigationTypeOther : (NSInteger)navigationType;
@@ -157,7 +154,8 @@
 
 - (JSContext *)mttJavaScriptContext
 {
-    return [self findValueForKeyPathCrumbs:@[@"documentV", @"iew.webView.m",@"ainFrame.java", @"ScriptContext"]];
+    // documentView.webView.mainFrame.javaScriptContext
+    return [self findValueForKeyPathCrumbs:@[@"document", @"View", @".", @"webView", @".", @"mainFrame", @".", @"javaScript", @"Context"]];
 }
 
 @end

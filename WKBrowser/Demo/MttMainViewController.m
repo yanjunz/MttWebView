@@ -35,7 +35,7 @@
     [self changeBrowserWindow];
     
     [self.addressBar update];
-    [self.currentBrowserWindow.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mail.163.com"]]];
+    [self.currentBrowserWindow.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stdl.qq.com/stdl/ipad/sites51/index.html"]]];
     
     
 //    Method method = class_getInstanceMethod(self.class, @selector(viewDidLoad));

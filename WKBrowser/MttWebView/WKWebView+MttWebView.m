@@ -7,10 +7,14 @@
 //
 
 #import "WKWebView+MttWebView.h"
+#import "MttWebView+Utils.h"
 #import <objc/runtime.h>
 #import "MTKObserving.h"
 #import "UIScrollViewDelegateProxy.h"
 #import "MttScriptMessageHandler.h"
+#import "NSObject+DeallocBlock.h"
+
+#ifdef MTT_FEATURE_WKWEBVIEW
 
 @implementation WKWebView (MttWebView)
 
@@ -18,16 +22,48 @@
 {
     self.navigationDelegate = self;
     self.UIDelegate = self;
+    
+#if __DEBUG__
+    // TO make sure the webView is dealloc, and no need to removeAllObservations since MTKObservor should be self managed.
+    __unsafe_unretained typeof(self) weakSelf = self;
+    [self addDeallocBlock:^{
+        WVLog(@"destroyWebView %@", weakSelf);
+//        [weakSelf removeAllObservations];
+    }];
+#endif
+    
     [self observeProperty:@keypath(self.estimatedProgress) withBlock:^(__weak typeof(self) self, id old, id newVal) {
+        WVLog(@"estimatedProgress %f", self.estimatedProgress);
         if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:didReceiveProgress:)]) {
             [self.mttWebViewDelegate mttWebView:self didReceiveProgress:self.estimatedProgress];
         }
     }];
-}
-
-- (void)destroyWebView
-{
-    [self removeAllObservations];
+    
+#ifdef MTT_TWEAK_WEBCONTENTVIEW_FIX
+    [[self.mttWebContentView.subviews firstObject] observeProperties:@[@"center", @"bounds"] withBlock:^(__weak id self, NSString *keyPath, id old, id newVal) {
+        WVLog(@"[KVO] %@ %@ %@ \n\t%@ \n\t%@", keyPath, old, newVal, self, [self superview]);
+        if ([@"center" isEqualToString:keyPath]) {
+            CGPoint newCenter = [(NSValue *)newVal CGPointValue];
+            if (newCenter.y < 0) {
+                NSLog(@"Got!");
+            }
+            if (!CGPointEqualToPoint(newCenter, CGPointZero)) {
+                [self setCenter:CGPointZero];
+            }
+        }
+//        else if ([@"bounds" isEqualToString:keyPath]) {
+//            CGRect newBounds = [(NSValue *)newVal CGRectValue];
+//            if ([self superview]) {
+//                CGRect parentBounds = [[self superview] bounds];
+//                if (!CGRectEqualToRect(newBounds, parentBounds)) {
+//                    [self setBounds:parentBounds];
+//                }
+//            }
+//        }
+    }];
+#endif // MTT_TWEAK_WEBCONTENTVIEW_FIX
+    
+    WVLog(@"setupWebView %@", self);
 }
 
 - (id<MttWebViewDelegate>)mttWebViewDelegate
@@ -58,14 +94,24 @@
     return NO;
 }
 
-- (void)setScalesPageToFit:(BOOL) setPages
+- (void)setScalesPageToFit:(BOOL)setPages
 {
+//    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
+//
+//    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
+//    WKUserContentController *wkUController = self.configuration.userContentController;
+//    [wkUController addUserScript:wkUScript];
+//    
+//    if (self.URL != nil) {
+//        [self evaluateJavaScript:jScript completionHandler:nil];
+//    }
+    
     return; // not supported in WKWebView
 }
 
 - (void)addScriptMessage:(NSString *)scriptMessage handler:(id)handler
 {
-    NSLog(@"[WKWebView] addScriptMessage %@", scriptMessage);
+    WVLog(@"[WKWebView] addScriptMessage %@", scriptMessage);
     
     WKUserContentController *userContentController = self.configuration.userContentController;
     
@@ -84,7 +130,7 @@
                                                    forMainFrameOnly:YES];
     [userContentController addUserScript:userScript];
     if (self.URL != nil) {
-        [self evaluateJavaScript:userScript.source completionHandler:nil];
+        [self evaluateJavaScript:userScript.source];
     }
 }
 
@@ -92,13 +138,14 @@
 #pragma mark WKNavigationDelegate
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    NSLog(@"[WKWebView] decidePolicy...");
+    BOOL isMainFrame = navigationAction.targetFrame ? navigationAction.targetFrame.isMainFrame : YES;
+    WVLog(@"[WKWebView] decidePolicy... %@ %d", navigationAction.request, isMainFrame);
     if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:decidePolicyWithRequest:navigationType:isMainFrame:decisionHandler:)]) {
         [self.mttWebViewDelegate mttWebView:self
-                            decidePolicyWithRequest:navigationAction.targetFrame.request
+                            decidePolicyWithRequest:navigationAction.request
                                      navigationType:(NSInteger)navigationAction.navigationType
-                                isMainFrame:navigationAction.targetFrame.isMainFrame decisionHandler:^(BOOL allow){
-                                    NSLog(@"[WKWebView] decidePolicy done!");
+                                isMainFrame:isMainFrame decisionHandler:^(BOOL allow){
+                                    NSLog(@"[WKWebView] decidePolicy done! %d", allow);
                                     if (decisionHandler) {
                                         decisionHandler(allow ? WKNavigationActionPolicyAllow : WKNavigationActionPolicyCancel);
                                     }
@@ -150,11 +197,12 @@
 #pragma mark WKUIDelegate
 - (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 {
+    BOOL isMainFrame = navigationAction.targetFrame ? navigationAction.targetFrame.isMainFrame : YES;
     if ([self.mttWebViewDelegate respondsToSelector:@selector(mttWebView:createWebViewWithConfiguration:withRequest:navigationType:isMainFrame:)]) {
         return (WKWebView *)[self.mttWebViewDelegate mttWebView:self createWebViewWithConfiguration:configuration
-                                                    withRequest:navigationAction.targetFrame.request
+                                                    withRequest:navigationAction.request
                                                  navigationType:(NSInteger)navigationAction.navigationType
-                                                    isMainFrame:navigationAction.targetFrame.isMainFrame];
+                                                    isMainFrame:isMainFrame];
     }
     else {
         return nil;
@@ -184,3 +232,4 @@
 
 @end
 
+#endif // #ifdef MTT_FEATURE_WKWEBVIEW

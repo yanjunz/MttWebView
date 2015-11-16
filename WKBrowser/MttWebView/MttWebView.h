@@ -12,6 +12,9 @@
 
 //#define MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
 
+#define MTT_FEATURE_WKWEBVIEW
+#define MTT_TWEAK_WEBCONTENTVIEW_FIX
+
 @protocol MttWebView;
 
 typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
@@ -22,6 +25,12 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
     MttWebViewNavigationTypeFormResubmitted,
     MttWebViewNavigationTypeOther = -1,
 };
+
+#if defined(__DEBUG__) || defined(DEBUG)
+#define WVLog(xx, ...) NSLog(@"%s(%d): " xx, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define WVLog(xx, ...)
+#endif
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnullability-completeness"
@@ -43,16 +52,16 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 
 - (void)mttWebView:(id<MttWebView>)webView didReceiveProgress:(CGFloat)progressValue;
 
-/* mainfarme 开始load */
+// 页面开始加载时调用
 - (void)mttWebViewDidStartProvisionalNavigation:(id<MttWebView>)webView;
-/* mainframe内容到了 */
+// 当内容开始返回时调用
 - (void)mttWebViewDidCommitNavigation:(id<MttWebView>)webView;
-/* mainframe加载结束 */
+// 在发送请求之前，决定是否跳转
 - (void)mttWebViewDidFinishNavigation:(id<MttWebView>)webView;
-/* mainframe加载出错 */
+// 页面加载完成之后调用
 - (void)mttWebView:(id<MttWebView>)webView didFailNavigationWithError:(NSError *)error;
 
-// UI Delegate
+// Ask for new WebView
 - (id<MttWebView>)mttWebView:(id<MttWebView>)webView createWebViewWithConfiguration:(id)configuration
                  withRequest:(NSURLRequest *)request
               navigationType:(MttWebViewNavigationType)navigationType
@@ -67,6 +76,8 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 
 @property (nonatomic, readonly) double estimatedProgress;
 
+@property (nonatomic, readonly, getter=isLoading) BOOL loading;
+
 @property (nonatomic) BOOL scalesPageToFit;
 
 @property (nonatomic, readonly, strong) UIScrollView *scrollView;
@@ -77,8 +88,6 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 - (instancetype)initWithFrame:(CGRect)frame configuration:(id)configuration;
 
 - (void)setupWebView;
-
-- (void)destroyWebView;
 
 - (void)loadRequest: (NSURLRequest *) request;
 
@@ -117,8 +126,8 @@ typedef NS_ENUM(NSInteger, MttWebViewNavigationType) {
 @interface MttWebView : UIView<MttWebView>
 @end
 
-#define AS_MttWebView_Category(category)    @interface MttWebView (category)
-#define DEF_MttWebView_Category(category)   @implementation MttWebView (category)
+#define AS_MttWebView_Category(category)    @interface UIView (category)
+#define DEF_MttWebView_Category(category)   @implementation UIView (category)
 
 #else // MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
 
@@ -130,7 +139,7 @@ typedef UIView<MttWebView>  MttWebView;
 #endif // MTT_FEATURE_MTTWEBVIEW_AS_CLASS_CLUSTER
 
 
-
+// Macro to define property in category conviniently
 #define DEF_CATEGORY_PROPERTY(type, name, uppercaseFirstName, propType) \
 - (type)name { \
     return objc_getAssociatedObject(self, @selector(name)); \
@@ -147,10 +156,10 @@ typedef UIView<MttWebView>  MttWebView;
 #define DEF_CATEGORY_PROPERTY_RETAIN_NONATOMIC(type, name, uppercaseFirstName) \
     DEF_CATEGORY_PROPERTY(type, name, uppercaseFirstName, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
-// For BOOL & Integer
+// For primitive type, eg. BOOL & Integer
 #define DEF_CATEGORY_PROPERTY_PRIMITIVE(type, name, uppercaseFirstName) \
 - (type)name { \
-    return objc_getAssociatedObject(self, @selector(name)); \
+    return (type)[objc_getAssociatedObject(self, @selector(name)) integerValue]; \
 } \
 - (void)set##uppercaseFirstName:(type)name { \
     objc_setAssociatedObject(self, @selector(name), @(name), OBJC_ASSOCIATION_ASSIGN); \

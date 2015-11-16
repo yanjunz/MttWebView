@@ -31,7 +31,7 @@
 #pragma mark WKScriptMessageHandler
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
-    NSLog(@"scriptMessage %@ %@ %@", message.name, message.body, [message.body class]);
+    WVLog(@"scriptMessage %@ %@ %@", message.name, message.body, [message.body class]);
     NSString *js = [NSString stringWithFormat:@"%@.apply(null, JSON.parse('%@'))", message.name, message.body ?: @""];
     [self.context evaluateScript:js];
 }

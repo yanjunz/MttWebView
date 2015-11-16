@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MttWebView.h"
 
-#define WeakSelf __weak typeof(self)
-
-typedef void(^MttSuccessBlock)       (__weak id self, id ret);
-typedef void(^MttFailBlock)          (__weak id self, NSError *error);
+typedef void(^MttSuccessBlock)       (__weak MttWebView *webView, id ret);
+typedef void(^MttFailBlock)          (__weak MttWebView *webView, NSError *error);
 
 AS_MttWebView_Category(Utils)
 
@@ -25,9 +23,9 @@ AS_MttWebView_Category(Utils)
 
 
 - (void)evaluateJavaScript:(NSString *)javaScriptString successHandler:(MttSuccessBlock)successHandler failHandler:(MttFailBlock)failHandler;
+- (void)evaluateJavaScript:(NSString *)javaScriptString;
 
-// Deprecated! Just for debug
+// Deprecated! Just for old code migration
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
-- (void)stringByEvaluatingJavaScriptFromString:(NSString *)script withDelay:(NSTimeInterval)delay;
 
 @end
